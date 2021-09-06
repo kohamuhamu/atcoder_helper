@@ -30,7 +30,10 @@ mkdir -p "${TEST_DIR}" "${BUILD_DIR}" "${TMP_SRC_DIR}"
 
 
 ### 提出用ファイル連結 ###################################
-awk 1 "${SRC_DIR}/${TASK}.kt" "${COMMON_KT}" > "${TMP_SRC_DIR}/${TASK}.kt"
+# Note: 連結時にそれぞれの import 文をファイルの先頭に移している.
+awk 1 "${SRC_DIR}/${TASK}.kt" "${COMMON_KT}" | (grep import || true) | sort | uniq > "${TMP_SRC_DIR}/${TASK}.kt"
+echo >> "${TMP_SRC_DIR}/${TASK}.kt"
+awk 1 "${SRC_DIR}/${TASK}.kt" "${COMMON_KT}" | (grep -v import || true) >> "${TMP_SRC_DIR}/${TASK}.kt"
 
 
 ### build ################################################
