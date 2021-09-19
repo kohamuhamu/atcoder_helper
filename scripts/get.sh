@@ -13,6 +13,13 @@ TASK_NAMES=( "${ARGS[@]}" )
 SCRIPT_DIR="$(cd "$(dirname "${0}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 TEST_DIR="${ROOT_DIR}/tmp/test"
+MainKT="fun main() {
+    func()
+    pw.flush()
+}
+
+private fun func() {
+}"
 
 
 ### kotlin ファイルの作成と問題のダウンロード ############
@@ -29,8 +36,6 @@ for TASK in "${TASK_NAMES[@]}"; do
     ## kotlin ファイルの touch
     if [ "${DL_CHECK}" == "TRUE" ] && [ ! -f "${ROOT_DIR}/../src/main/kotlin/${TASK}.kt" ]; then
         mkdir -p "${ROOT_DIR}/../src/main/kotlin/"
-        touch "${ROOT_DIR}/../src/main/kotlin/${TASK}.kt"
-        echo "fun main() {" >> "${ROOT_DIR}/../src/main/kotlin/${TASK}.kt"
-        echo "}" >> "${ROOT_DIR}/../src/main/kotlin/${TASK}.kt"
+        echo "${MainKT}" > "${ROOT_DIR}/../src/main/kotlin/${TASK}.kt"
     fi
 done
