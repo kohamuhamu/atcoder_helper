@@ -50,3 +50,12 @@ fun <T : Comparable<T>> Iterable<T>.maxOf(): T {
     }
     return maxValue
 }
+
+fun next() = readLine() ?: error("標準入力が null になっています")
+fun nextInt() = next().toInt()
+fun nextLong() = next().toLong()
+fun nextDouble() = next().toDouble()
+fun nextList() = next().split(" ")
+fun nextIntList() = nextList().map{ it.toInt() }
+fun nextLongList() = nextList().map{ it.toLong() }
+fun nextDoubleList() = nextList().map{ it.toDouble() }
